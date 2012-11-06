@@ -1,6 +1,7 @@
 package me.eccentric_nz.plugins.autocolour;
 
 import java.io.File;
+import java.io.IOException;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
@@ -43,6 +44,13 @@ public class AutoColour extends JavaPlugin implements Listener {
         getCommand("autocolour").setExecutor(commando);
         getCommand("aclist").setExecutor(commando);
         getCommand("acremove").setExecutor(commando);
+
+        try {
+            MetricsLite metrics = new MetricsLite(this);
+            metrics.start();
+        } catch (IOException e) {
+            // Failed to submit the stats :-(
+        }
     }
 
     @Override
