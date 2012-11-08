@@ -1,6 +1,7 @@
 package me.eccentric_nz.plugins.autocolour;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -73,14 +74,15 @@ public class AutoColourCommands implements CommandExecutor {
                 find[2] = sb.toString();
                 try {
                     Connection connection = service.getConnection();
-                    Statement statement = connection.createStatement();
+                    PreparedStatement statement = connection.prepareStatement("INSERT INTO autocolour (find, colour) VALUES (?,?)");
                     for (String f : find) {
-                        String queryColour = "INSERT INTO autocolour (find, colour) VALUES ('" + f + "','" + code + "')";
-                        statement.executeUpdate(queryColour);
+                        statement.setString(1, f);
+                        statement.setString(2, code);
+                        statement.executeUpdate();
                     }
                     statement.close();
                 } catch (SQLException e) {
-                    System.err.println("[AutoColour] Couldn't get substitutions: " + e);
+                    System.err.println(AutoColourConstants.MY_PLUGIN_NAME + "Couldn't get substitutions: " + e);
                 }
                 AutoColourHighlighter highlighter = new AutoColourHighlighter(plugin);
                 plugin.replace = highlighter.buildSubstitutions();
@@ -117,12 +119,12 @@ public class AutoColourCommands implements CommandExecutor {
                 rsWord.close();
                 statement.close();
             } catch (SQLException e) {
-                System.err.println("[AutoColour] Couldn't get substitutions: " + e);
+                System.err.println(AutoColourConstants.MY_PLUGIN_NAME + "Couldn't get substitutions: " + e);
             }
             AutoColourHighlighter highlighter = new AutoColourHighlighter(plugin);
             plugin.replace = highlighter.buildSubstitutions();
 
-            sender.sendMessage(AutoColourConstants.MY_PLUGIN_NAME + " Successfully removed word!");
+            sender.sendMessage(AutoColourConstants.MY_PLUGIN_NAME + "Successfully removed word!");
             return true;
         }
         if (cmd.getName().equalsIgnoreCase("aclist")) {
@@ -132,7 +134,7 @@ public class AutoColourCommands implements CommandExecutor {
                 String queryList = "SELECT * FROM autocolour";
                 ResultSet rsList = statement.executeQuery(queryList);
                 if (!rsList.isBeforeFirst()) {
-                    sender.sendMessage(AutoColourConstants.MY_PLUGIN_NAME + " There are word in the list yet!");
+                    sender.sendMessage(AutoColourConstants.MY_PLUGIN_NAME + "There are word in the list yet!");
                     return false;
                 }
                 String compare = "";
@@ -150,7 +152,7 @@ public class AutoColourCommands implements CommandExecutor {
                     sender.sendMessage(u);
                 }
             } catch (SQLException e) {
-                System.err.println("[AutoColour] Couldn't get substitutions: " + e);
+                System.err.println(AutoColourConstants.MY_PLUGIN_NAME + "Couldn't get substitutions: " + e);
             }
             return true;
         }
