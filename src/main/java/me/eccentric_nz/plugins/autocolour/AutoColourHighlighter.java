@@ -40,7 +40,7 @@ public class AutoColourHighlighter implements Listener {
                 rsSubs.close();
             }
         } catch (SQLException e) {
-            System.err.println("[AutoColour] Couldn't get substitutions: " + e);
+            System.out.println(AutoColourConstants.MY_PLUGIN_NAME + "¤cCouldn't get substitutions:¤r " + e);
         }
         return subs;
     }
