@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.eccentric_nz.plugins.autocolour</groupId>
     <artifactId>AutoColour</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <name>AutoColour</name>
     <url>http://dev.bukkit.org/server-mods/autocolour/</url>
     <repositories>
@@ -28,7 +28,14 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.4.5-R0.3-SNAPSHOT</version>
+            <version>1.4.6-R0.2-SNAPSHOT</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ci.herocraftonline.com</groupId>
+            <artifactId>herochat</artifactId>
+            <version>5.6.1</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
