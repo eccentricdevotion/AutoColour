@@ -5,7 +5,8 @@ main: me.eccentric_nz.plugins.autocolour.AutoColour
 name: AutoColour
 startup: postworld
 dev-url: http://dev.bukkit.org/server-mods/autocolour/
-version: '1.0.2'
+version: '1.0.3'
+softdepend : [Herochat]
 permissions:
   autocolour.admin:
     description: Allow players access administer AutoColour.
