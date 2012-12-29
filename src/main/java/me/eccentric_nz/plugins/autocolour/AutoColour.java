@@ -3,7 +3,9 @@ package me.eccentric_nz.plugins.autocolour;
 import java.io.File;
 import java.io.IOException;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -12,6 +14,7 @@ public class AutoColour extends JavaPlugin implements Listener {
     protected static AutoColour plugin;
     AutoColourDatabase service = AutoColourDatabase.getInstance();
     private AutoColourCommands commando;
+    public AutoColourUtils utils;
     PluginManager pm = Bukkit.getServer().getPluginManager();
     public String[][] replace;
 
@@ -37,9 +40,19 @@ public class AutoColour extends JavaPlugin implements Listener {
             System.err.println(AutoColourConstants.MY_PLUGIN_NAME + " Connection and Tables Error: " + e);
         }
 
+        Plugin h = pm.getPlugin("Herochat");
+        boolean set = (h != null) ? true : false;
+        getConfig().set("herochat", set);
+        saveConfig();
+
+        utils = new AutoColourUtils(plugin);
+        replace = utils.buildSubstitutions(ChatColor.RESET);
         AutoColourHighlighter highlighter = new AutoColourHighlighter(plugin);
-        replace = highlighter.buildSubstitutions();
         pm.registerEvents(highlighter, plugin);
+        if (h != null) {
+            AutoColourHeroLighter herochat = new AutoColourHeroLighter(plugin);
+            pm.registerEvents(herochat, plugin);
+        }
         commando = new AutoColourCommands(plugin);
         getCommand("autocolour").setExecutor(commando);
         getCommand("aclist").setExecutor(commando);

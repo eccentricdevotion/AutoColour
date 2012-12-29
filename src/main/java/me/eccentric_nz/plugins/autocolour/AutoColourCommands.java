@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -85,7 +86,7 @@ public class AutoColourCommands implements CommandExecutor {
                     System.err.println(AutoColourConstants.MY_PLUGIN_NAME + "Couldn't get substitutions: " + e);
                 }
                 AutoColourHighlighter highlighter = new AutoColourHighlighter(plugin);
-                plugin.replace = highlighter.buildSubstitutions();
+                plugin.replace = plugin.utils.buildSubstitutions(ChatColor.RESET);
 
                 sender.sendMessage(AutoColourConstants.MY_PLUGIN_NAME + " Successfully added word!");
                 return true;
@@ -122,7 +123,7 @@ public class AutoColourCommands implements CommandExecutor {
                 System.err.println(AutoColourConstants.MY_PLUGIN_NAME + "Couldn't get substitutions: " + e);
             }
             AutoColourHighlighter highlighter = new AutoColourHighlighter(plugin);
-            plugin.replace = highlighter.buildSubstitutions();
+            plugin.replace = plugin.utils.buildSubstitutions(ChatColor.RESET);
 
             sender.sendMessage(AutoColourConstants.MY_PLUGIN_NAME + "Successfully removed word!");
             return true;
