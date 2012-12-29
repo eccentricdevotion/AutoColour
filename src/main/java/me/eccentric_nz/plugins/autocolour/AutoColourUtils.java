@@ -28,8 +28,15 @@ public class AutoColourUtils {
             ResultSet rsSubs = statement.executeQuery(querySubs);
             if (rsSubs.isBeforeFirst()) {
                 while (rsSubs.next()) {
+                    // get colour codes
+                    char[] colours = rsSubs.getString("colour").toCharArray();
+                    StringBuilder sb = new StringBuilder();
+                    for (char c : colours) {
+                        sb.append("¤").append(c);
+                    }
+                    String format = sb.toString();
                     String find = "\\b" + rsSubs.getString("find") + "\\b";
-                    String change = "¤" + rsSubs.getString("colour") + rsSubs.getString("find") + reset;
+                    String change = format + rsSubs.getString("find") + reset;
                     preList.add(new String[]{find, change});
                 }
                 subs = preList.toArray(new String[preList.size()][2]);

@@ -51,12 +51,28 @@ public class AutoColourCommands implements CommandExecutor {
                     return false;
                 }
                 if (colour.startsWith("&")) {
-                    String codestr = colour.substring(1, 2).toLowerCase();
-                    if (colour.length() > 2 || !Arrays.asList(AutoColourConstants.validCodes).contains(codestr)) {
+                    String codestr1 = colour.substring(1, 2).toLowerCase();
+                    if (!Arrays.asList(AutoColourConstants.validCodes).contains(codestr1)) {
                         sender.sendMessage(AutoColourConstants.MY_PLUGIN_NAME + " Not a valid colour or format code!");
                         return false;
                     }
-                    code = codestr;
+                    String codestr2 = "";
+                    String codestr3 = "";
+                    if (colour.length() > 2) {
+                        codestr2 = colour.substring(3, 4).toLowerCase();
+                        if (!Arrays.asList(AutoColourConstants.validCodes).contains(codestr2)) {
+                            sender.sendMessage(AutoColourConstants.MY_PLUGIN_NAME + " Not a valid colour or format code for the second option!");
+                            return false;
+                        }
+                        if (colour.length() > 4) {
+                            codestr3 = colour.substring(5, 6).toLowerCase();
+                            if (!Arrays.asList(AutoColourConstants.validCodes).contains(codestr3)) {
+                                sender.sendMessage(AutoColourConstants.MY_PLUGIN_NAME + " Not a valid colour or format code for the third option!");
+                                return false;
+                            }
+                        }
+                    }
+                    code = codestr1 + codestr2 + codestr3;
                 } else {
                     int i = 0;
                     for (String c : AutoColourConstants.validColours) {
@@ -143,7 +159,7 @@ public class AutoColourCommands implements CommandExecutor {
                 while (rsList.next()) {
                     String word = rsList.getString("find").toLowerCase();
                     if (!word.equals(compare)) {
-                        unique.add("¤"+rsList.getString("colour")+word);
+                        unique.add("¤" + rsList.getString("colour") + word);
                         compare = word;
                     }
                 }
