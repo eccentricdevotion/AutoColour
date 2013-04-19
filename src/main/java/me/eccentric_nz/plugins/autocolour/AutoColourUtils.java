@@ -32,7 +32,7 @@ public class AutoColourUtils {
                     char[] colours = rsSubs.getString("colour").toCharArray();
                     StringBuilder sb = new StringBuilder();
                     for (char c : colours) {
-                        sb.append("¤").append(c);
+                        sb.append("§").append(c);
                     }
                     String format = sb.toString();
                     String find = "\\b" + rsSubs.getString("find") + "\\b";
@@ -43,7 +43,7 @@ public class AutoColourUtils {
                 rsSubs.close();
             }
         } catch (SQLException e) {
-            System.out.println(AutoColourConstants.MY_PLUGIN_NAME + "¤cCouldn't get substitutions:¤r " + e);
+            System.out.println(AutoColourConstants.MY_PLUGIN_NAME + "§cCouldn't get substitutions:§r " + e);
         }
         return subs;
     }

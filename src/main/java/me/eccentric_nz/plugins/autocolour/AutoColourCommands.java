@@ -34,7 +34,7 @@ public class AutoColourCommands implements CommandExecutor {
                 for (String c : AutoColourConstants.validColours) {
                     String colour = AutoColourConstants.validColours[i];
                     code = AutoColourConstants.validCodes[i];
-                    String message = "¤" + code + colour + "¤r | &" + code;
+                    String message = "§" + code + colour + "§r | &" + code;
                     sender.sendMessage(message);
                     i++;
                 }
@@ -159,7 +159,8 @@ public class AutoColourCommands implements CommandExecutor {
                 while (rsList.next()) {
                     String word = rsList.getString("find").toLowerCase();
                     if (!word.equals(compare)) {
-                        unique.add("¤" + rsList.getString("colour") + word);
+                        String magic = (rsList.getString("colour").equals("k")) ? ChatColor.RESET + " (" + word + ")" : "";
+                        unique.add("§" + rsList.getString("colour") + word + magic);
                         compare = word;
                     }
                 }
